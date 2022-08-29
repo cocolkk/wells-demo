@@ -3,17 +3,22 @@
   <div class="prod-well">
     <div class="side">
       <DxMenu
+        :adaptivity-enabled="true"
         :data-source="wallList.list"
         :show-first-submenu-mode="showFirstSubmenuModes"
         :orientation="orientation"
         :hide-submenu-on-mouse-leave="hideSubmenuOnMouseLeave"
         display-expr="name"
         @item-click="itemClick"
-      />
+      >
+      </DxMenu>
     </div>
-
-    <DxChart :data-source="chartDataSource.list" :title="wellNameTitle.title">
-      <DxSize :height="620" :width="1200" />
+    <DxChart
+      id="chart"
+      :data-source="chartDataSource.list"
+      :title="wellNameTitle.title"
+    >
+      <DxSize :height="480" />
       <!-- 设置y轴刻度 -->
       <DxValueAxis :grid="{ opacity: 0.2 }" value-type="numeric">
         <DxLabel :customize-text="customizeLabelText" />
@@ -41,6 +46,7 @@ import { reactive, ref, onMounted, watchEffect } from "vue";
 import { getwellsList_API, getWellCharts_API } from "../../axios/wells.js";
 import DxMenu from "devextreme-vue/menu";
 import { dateFomat } from "@/utils/fromatDate";
+
 import HeaderL from "@/components/HeaderL.vue";
 import {
   DxChart,
@@ -168,13 +174,34 @@ export default {
 </script>
 <style lang="less">
 .side {
-  padding-right: 40px;
+  padding: 20px 40px 0 0;
   border-right: 1px solid #ddd;
   margin-right: 30px;
+  &-title {
+    height: 60px;
+    // background: #151515;
+    color: rgb(203, 203, 203);
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+      sans-serif;
+    font-size: 18px;
+  }
 }
 .prod-well {
   display: flex;
-  padding: 30px;
-  height: 100vh;
+  padding: 0 20px;
+  height: calc(100vh - 70px);
+}
+.main {
+  // height: calc(100vh - 70px);
+}
+#chart {
+  width: 88%;
+  height: 70%;
+  padding: 20px 0;
+  tspan {
+    color: yellow;
+  }
+  .dxc-arg-elements {
+  }
 }
 </style>
